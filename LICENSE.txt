@@ -1,0 +1,71 @@
+CONTEXT LOOM - SOURCE-AVAILABLE USE LICENSE
+
+Copyright (c) 2026 prokjs. All rights reserved.
+
+This is a custom, source-available license, not an open-source license.
+It covers the original Context Loom software and documentation made available
+by prokjs (the "Software"), to the extent prokjs holds the relevant rights.
+
+1. PERMITTED USE
+
+Subject to these terms, you may download and run official, unmodified copies
+of the Software for your personal use or your organization's internal work,
+including commercial work. You may make private copies needed to run the
+Software and back up your installation. You may inspect the available source,
+build unmodified source for those permitted uses, and make private copies for
+study. You must preserve the copyright, authorship, and license notices on
+copies covered by this permission.
+
+No fee is charged by this license for those permitted uses. Any AI provider
+fees, subscriptions, or other third-party charges are separate.
+
+2. RESTRICTIONS
+
+Except as permitted above, by a separate written agreement with prokjs, by
+applicable non-waivable law, or by applicable platform terms under section 4,
+no permission is granted to:
+
+- redistribute, republish, sublicense, sell, rent, or offer copies of the
+  Software, including modified copies or parts of its original code or
+  documentation;
+- modify or create derivative versions of the Software;
+- offer the Software to third parties as a hosted or managed service;
+- rebrand the Software, remove or obscure its copyright, license, or
+  authorship notices, or represent it as your own creation.
+
+Giving attribution alone does not authorize otherwise prohibited reuse.
+Contact prokjs through https://github.com/prokjs to request written permission.
+No endorsement, trademark license, or right to impersonate prokjs is granted.
+All rights not expressly granted are reserved.
+
+3. YOUR CONTENT AND THIRD-PARTY COMPONENTS
+
+This license does not claim ownership of or impose reuse restrictions on
+your own project data, memories, task descriptions, prompts you compose, or
+AI responses. Any rights or obligations concerning an AI provider's output
+remain governed by applicable law and that provider's terms.
+
+Third-party components, including the bundled Node.js runtime, are not
+relicensed by this document. They remain subject to their respective
+licenses and notices. Consult THIRD-PARTY-NOTICES.txt in the release or run
+the packaged executable with --licenses to view the included notices.
+
+4. PLATFORM RIGHTS AND APPLICABLE LAW
+
+Public source visibility does not by itself grant general permission to
+reuse the Software. Nevertheless, nothing here limits rights granted to
+users by the applicable hosting platform's terms (including GitHub's rights
+to view and fork a public repository through its service), applicable
+third-party licenses, or rights that applicable law makes non-waivable.
+Copyright does not grant exclusive ownership of general ideas or methods.
+
+5. DISCLAIMER
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, AND NONINFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE
+LAW, THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR CLAIMS, DAMAGES, OR OTHER
+LIABILITY ARISING FROM THE SOFTWARE OR ITS USE, WHETHER IN CONTRACT, TORT,
+OR OTHERWISE. NOTHING HERE EXCLUDES LIABILITY OR CONSUMER RIGHTS THAT
+APPLICABLE LAW DOES NOT PERMIT TO BE EXCLUDED.

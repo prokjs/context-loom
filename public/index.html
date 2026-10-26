@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Context Loom</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#task" data-i18n="app.skip"></a>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark" aria-hidden="true">CL</span><span>Context Loom<small data-i18n="app.tagline"></small></span></a>
+    <div class="project-switcher"><label for="project-select" data-i18n="project.current"></label><select id="project-select" disabled><option data-i18n="project.loading"></option></select><button id="new-project" type="button" disabled data-i18n="project.new"></button></div>
+    <label class="language-picker" for="ui-language"><span data-i18n="language.ui"></span><select id="ui-language"></select></label>
+    <span class="local-badge" data-i18n="app.local"></span>
+  </header>
+  <div id="global-error" class="notice error global-notice" role="alert" hidden></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <p class="eyebrow" data-i18n="nav.workspace"></p>
+      <nav data-i18n-aria-label="nav.label"><a href="#compose">01 <span data-i18n="nav.compose"></span></a><a href="#memory">02 <span data-i18n="nav.memories"></span></a><a href="#profile">03 <span data-i18n="nav.profile"></span></a><a href="#history">04 <span data-i18n="nav.usage"></span></a></nav>
+      <div class="sidebar-note"><strong data-i18n="sidebar.signal"></strong><p data-i18n="sidebar.memories"></p><p data-i18n="sidebar.tokens"></p></div>
+      <div class="backup-actions"><button id="export-backup" type="button" disabled data-i18n="backup.export"></button><label class="button file-button" for="import-backup"><span data-i18n="backup.import"></span><input id="import-backup" type="file" accept="application/json,.json" disabled data-i18n-aria-label="backup.import"></label><small data-i18n="backup.help"></small></div>
+      <p id="save-status" class="save-status" role="status" data-i18n="save.loading"></p>
+    </aside>
+    <main id="workspace" hidden>
+      <section id="compose" aria-labelledby="compose-title">
+        <div class="section-heading"><div><p class="eyebrow" data-i18n="compose.eyebrow"></p><h1 id="compose-title" data-i18n="compose.title"></h1><p class="lead" data-i18n="compose.lead"></p></div><span class="pill" data-i18n="compose.free"></span></div>
+        <form id="compile-form" class="panel composer">
+          <label for="task" data-i18n="compose.task"></label>
+          <textarea id="task" rows="6" maxlength="24000" data-i18n-placeholder="compose.placeholder" required></textarea>
+          <div class="settings-grid">
+            <label for="memory-budget"><span data-i18n="compose.memoryBudget"></span><span class="field-note" data-i18n="compose.memoryNote"></span><input id="memory-budget" type="number" min="0" max="8000" step="1" value="1600" required></label>
+            <label for="output-cap"><span data-i18n="compose.output"></span><span class="field-note" data-i18n="compose.outputNote"></span><input id="output-cap" type="number" min="128" max="8192" step="1" value="2048" required></label>
+            <label for="reasoning"><span data-i18n="compose.reasoning"></span><span class="field-note" data-i18n="compose.reasoningNote"></span><select id="reasoning"><option value="none" data-i18n="reasoning.none"></option><option value="low" selected data-i18n="reasoning.low"></option><option value="medium" data-i18n="reasoning.medium"></option></select></label>
+          </div>
+          <div class="action-row"><button id="compile-button" class="primary" type="submit" data-i18n="compose.submit"></button><span id="compile-status" role="status" data-i18n="compile.local"></span></div>
+        </form>
+        <section id="preview" class="panel" aria-labelledby="preview-title" hidden>
+          <div class="panel-heading"><div><p class="eyebrow" data-i18n="preview.eyebrow"></p><h2 id="preview-title" data-i18n="preview.title"></h2></div><span id="preview-state" class="pill" data-i18n="preview.ready"></span></div>
+          <div class="token-grid"><div><span data-i18n="preview.input"></span><strong id="compiled-tokens">—</strong></div><div><span data-i18n="preview.baseline"></span><strong id="baseline-tokens">—</strong></div><div><span data-i18n="preview.saved"></span><strong id="saved-tokens">—</strong></div></div>
+          <p class="help" data-i18n="preview.help"></p>
+          <details><summary data-i18n="preview.memories"></summary><div class="memory-selection"><div><h3 data-i18n="preview.included"></h3><ul id="selected-memories"></ul></div><div><h3 data-i18n="preview.omitted"></h3><ul id="omitted-memories"></ul></div></div></details>
+          <label class="sr-only" for="prompt-preview" data-i18n="preview.prompt"></label><textarea id="prompt-preview" class="code-input" rows="13" readonly spellcheck="false"></textarea>
+          <div class="action-row"><button id="copy-prompt" type="button" data-i18n="export.copy"></button><button id="download-prompt" type="button" data-i18n="export.download"></button><span id="export-status" role="status"></span></div>
+        </section>
+        <section class="panel api-panel" aria-labelledby="api-title">
+          <div class="panel-heading"><div><p class="eyebrow" data-i18n="api.eyebrow"></p><h2 id="api-title" data-i18n="api.title"></h2></div><span class="pill paid">gpt-6-luna</span></div>
+          <div class="notice warning"><strong data-i18n="api.warning"></strong><p data-i18n="api.warningBody"></p></div>
+          <p id="pricing-info" class="help" data-i18n="api.pricingEmpty"></p>
+          <div id="estimate" class="estimate-grid" hidden><div><span data-i18n="api.estimateInput"></span><strong id="estimate-input">—</strong></div><div><span data-i18n="api.estimateOutput"></span><strong id="estimate-output">—</strong></div><div><span data-i18n="api.estimateTotal"></span><strong id="estimate-total">—</strong></div></div>
+          <p class="help" data-i18n="api.estimateHelp"></p>
+          <label for="api-key"><span data-i18n="api.key"></span><span class="field-note" data-i18n="api.keyNote"></span></label>
+          <div class="key-row"><input id="api-key" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" data-i18n-placeholder="api.keyPlaceholder"><button id="clear-key" type="button" data-i18n="api.clearKey"></button></div>
+          <label class="check-label approval"><input id="api-consent" type="checkbox" disabled><span id="consent-label" data-i18n="api.consentEmpty"></span></label>
+          <div class="action-row"><button id="run-button" class="primary" type="button" disabled data-i18n="api.run"></button><span id="run-status" role="status" data-i18n="api.noRetries"></span></div>
+          <div id="answer-section" class="answer-section" hidden><div class="panel-heading"><h3 data-i18n="answer.title"></h3><span id="answer-status" class="pill"></span></div><p id="answer-usage" class="help"></p><pre id="answer-text" class="answer-text"></pre><button id="save-answer" type="button" data-i18n="answer.save"></button><p class="help" data-i18n="answer.help"></p></div>
+        </section>
+      </section>
+      <section id="memory" aria-labelledby="memory-title">
+        <div class="section-heading"><div><p class="eyebrow" data-i18n="memory.eyebrow"></p><h2 id="memory-title" data-i18n="memory.title"></h2><p class="help" data-i18n="memory.help"></p></div></div>
+        <form id="memory-form" class="panel">
+          <h3 id="memory-form-title" data-i18n="memory.add"></h3>
+          <label for="memory-text" data-i18n="memory.text"></label><textarea id="memory-text" rows="3" maxlength="12000" required data-i18n-placeholder="memory.placeholder"></textarea>
+          <label for="memory-tags"><span data-i18n="memory.tags"></span><span class="field-note" data-i18n="memory.tagsNote"></span></label><input id="memory-tags" maxlength="500" data-i18n-placeholder="memory.tagsPlaceholder">
+          <div class="action-row"><label class="check-label"><input id="memory-pinned" type="checkbox"><span data-i18n="memory.pin"></span></label><label class="check-label"><input id="memory-enabled" type="checkbox" checked><span data-i18n="memory.enable"></span></label><button id="memory-submit" class="primary" type="submit" data-i18n="memory.save"></button><button id="memory-cancel" type="button" hidden data-i18n="memory.cancel"></button></div>
+        </form>
+        <div id="memory-list" class="memory-list"></div>
+      </section>
+      <section id="profile" aria-labelledby="profile-title" class="panel"><div class="panel-heading"><div><p class="eyebrow" data-i18n="profile.eyebrow"></p><h2 id="profile-title" data-i18n="profile.title"></h2></div><button id="edit-profile" type="button" data-i18n="profile.edit"></button></div><dl id="profile-content" class="profile-grid"></dl></section>
+      <section id="history" aria-labelledby="history-title" class="panel"><div class="panel-heading"><div><p class="eyebrow" data-i18n="usage.eyebrow"></p><h2 id="history-title" data-i18n="usage.title"></h2></div><button id="refresh-history" type="button" data-i18n="usage.refresh"></button></div><p class="help" data-i18n="usage.help"></p><div id="usage-list"></div></section>
+    </main>
+    <main id="empty-workspace" hidden><section class="panel welcome"><p class="eyebrow" data-i18n="welcome.eyebrow"></p><h1 data-i18n="welcome.title"></h1><p data-i18n="welcome.help"></p><button id="welcome-create" class="primary" type="button" data-i18n="welcome.create"></button></section></main>
+  </div>
+  <dialog id="profile-dialog" aria-labelledby="dialog-title">
+    <form id="profile-form">
+      <div class="panel-heading"><div><p class="eyebrow" data-i18n="dialog.eyebrow"></p><h2 id="dialog-title" data-i18n="dialog.createTitle"></h2></div><button id="close-dialog" class="quiet" type="button" data-i18n-aria-label="dialog.closeLabel" data-i18n="dialog.close"></button></div>
+      <label class="language-picker" for="dialog-ui-language"><span data-i18n="language.ui"></span><select id="dialog-ui-language"></select></label>
+      <p class="help" data-i18n="dialog.help"></p>
+      <label for="project-name" data-i18n="dialog.name"></label><input id="project-name" maxlength="120" required data-i18n-placeholder="dialog.namePlaceholder">
+      <label for="project-goal" data-i18n="dialog.goal"></label><textarea id="project-goal" rows="3" maxlength="12000" required data-i18n-placeholder="dialog.goalPlaceholder"></textarea>
+      <label for="project-in-scope" data-i18n="dialog.inScope"></label><textarea id="project-in-scope" rows="2" maxlength="12000" data-i18n-placeholder="dialog.inPlaceholder"></textarea>
+      <label for="project-out-scope" data-i18n="dialog.outScope"></label><textarea id="project-out-scope" rows="2" maxlength="12000" data-i18n-placeholder="dialog.outPlaceholder"></textarea>
+      <label for="project-constraints" data-i18n="dialog.constraints"></label><textarea id="project-constraints" rows="2" maxlength="12000" data-i18n-placeholder="dialog.constraintsPlaceholder"></textarea>
+      <div class="settings-grid two">
+        <label for="project-style"><span data-i18n="dialog.detail"></span><select id="project-style"><option value="concise" data-i18n="style.concise"></option><option value="balanced" selected data-i18n="style.balanced"></option><option value="detailed" data-i18n="style.detailed"></option></select></label>
+        <label for="project-clarification"><span data-i18n="dialog.ambiguity"></span><select id="project-clarification"><option value="blocking" data-i18n="clarification.blocking"></option><option value="always" data-i18n="clarification.always"></option></select></label>
+      </div>
+      <label for="project-answer-language" data-i18n="language.answer"></label><select id="project-answer-language"></select><p class="help" data-i18n="language.help"></p>
+      <p id="profile-error" class="error-text" role="alert" hidden></p>
+      <div class="action-row"><button id="profile-submit" class="primary" type="submit" data-i18n="dialog.create"></button><span class="help" data-i18n="dialog.local"></span></div>
+    </form>
+  </dialog>
+</body>
+</html>
